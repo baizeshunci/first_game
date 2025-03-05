@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68481f578eb107c429be6d3f12b7b77b, type: 3}
+  m_Name: hatchet
+  m_EditorClassIdentifier: 
+  itemType: 1
+  itemName: hatchet
+  icon: {fileID: 21300000, guid: 906bd1c2c8957684590dd0a52379234f, type: 3}
+  dropChance: 14.5
+  equipmentType: 0
+  strength: 0
+  agility: 0
+  intelligence: 0
+  vitality: 0
+  damage: 20
+  critChance: 25
+  critDamage: 0
+  critPower: 0
+  maxHP: 20
+  armor: 5
+  evasion: 0
+  magicResistance: 0
+  fireDamage: 0
+  iceDamage: 0
+  lightningDamage: 0
+  craftMaterials:
+  - data: {fileID: 11400000, guid: 73065b9c41913b145a7dc1152205d7c1, type: 2}
+    stackSize: 1
+  - data: {fileID: 11400000, guid: 94500c8bf3b1fed48a7ec213707b0225, type: 2}
+    stackSize: 2
