@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UI_ItemSlot : MonoBehaviour  ,IPointerDownHandler
+public class UI_StatSlot : MonoBehaviour  ,IPointerDownHandler
 {
     [SerializeField] private Image itemImage;
     [SerializeField] private TextMeshProUGUI itemText;
@@ -44,7 +44,7 @@ public class UI_ItemSlot : MonoBehaviour  ,IPointerDownHandler
 
     public virtual void OnPointerDown(PointerEventData eventData)
     {
-        if (itemImage.sprite == null || item.stackSize==0)
+        if ( item == null )
         {
             return;
         }

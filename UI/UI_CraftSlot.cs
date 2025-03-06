@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class UI_CraftSlot : UI_ItemSlot
+public class UI_CraftSlot : UI_StatSlot
 {
     private void OnEnable()
     {

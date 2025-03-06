@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class ItemObject : MonoBehaviour
@@ -33,6 +34,12 @@ public class ItemObject : MonoBehaviour
 
     public void PickUpItem()
     {
+        if (!Inventory.instance.CanAddItem() && itemData.itemType == ItemType.Equilpment)
+        {
+            rb.velocity = new Vector2(0,7f);
+            return;
+        }
+
         Inventory.instance.AddItem(itemData);
         Destroy(gameObject);
     }

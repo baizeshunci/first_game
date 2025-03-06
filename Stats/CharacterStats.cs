@@ -4,28 +4,46 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.iOS;
 
+public enum StatType
+{
+    strength,
+    agility,
+    intelegence,
+    vituality,
+    damage,
+    critChance,
+    critPower,
+    health,
+    armor,
+    evasion,
+    magicRes,
+    fireDamage,
+    iceDamage,
+    lightingDamage
+}
+
 public class CharacterStats : MonoBehaviour
 {
     private EntityFX fx;
 
     [Header("Major stats")]
-    public Stat strength; // 1 point increase damage by 1 and crit.power by 1 Á¦Á¿
-    public Stat agility; // 1 point increase damage by 1% and crit.chance by 1% Ãô½Ý
-    public Stat intelligence; // 1 point inrease magic damage by 1 and magic resistance by 3 ÖÇ»Û
-    public Stat vitality; // 1 point increase health by 3 or 4 points »îÁ¦
+    public Stat strength; // 1 point increase damage by 1 and crit.power by 1 ï¿½ï¿½ï¿½ï¿½
+    public Stat agility; // 1 point increase damage by 1% and crit.chance by 1% ï¿½ï¿½ï¿½ï¿½
+    public Stat intelligence; // 1 point inrease magic damage by 1 and magic resistance by 3 ï¿½Ç»ï¿½
+    public Stat vitality; // 1 point increase health by 3 or 4 points ï¿½ï¿½ï¿½ï¿½
 
     [Header("Offensive stats")]
-    public Stat damage; //ÉËº¦
-    public Stat critChance;  //±©»÷ÂÊ
+    public Stat damage; //ï¿½Ëºï¿½
+    public Stat critChance;  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public Stat critDamage;
-    public Stat critPower;  //±¬ÉË
+    public Stat critPower;  //ï¿½ï¿½ï¿½ï¿½
 
 
     [Header("Defensive stats")]
-    public Stat maxHP;  //ÂúÑª
-    public Stat armor; // ×°¼× defence 
-    public Stat evasion; //ÉÁ±Ü miss
-    public Stat magicResistance;  //·¨¿¹
+    public Stat maxHP;  //ï¿½ï¿½Ñª
+    public Stat armor; // ×°ï¿½ï¿½ defence 
+    public Stat evasion; //ï¿½ï¿½ï¿½ï¿½ miss
+    public Stat magicResistance;  //ï¿½ï¿½ï¿½ï¿½
 
     [Header("Magic stats")]
     public Stat fireDamage;
@@ -173,7 +191,6 @@ public class CharacterStats : MonoBehaviour
             {
                 canApplyIgnite = true;
                 _targetStats.ApplyAilments(canApplyIgnite, canApplyChill, canApplayShock);
-                Debug.Log("»ð");
                 return;
             }
 
@@ -181,7 +198,6 @@ public class CharacterStats : MonoBehaviour
             {
                 canApplyChill = true;
                 _targetStats.ApplyAilments(canApplyIgnite, canApplyChill, canApplayShock);
-                Debug.Log("±ù");
                 return;
             }
 
@@ -189,7 +205,6 @@ public class CharacterStats : MonoBehaviour
             {
                 canApplayShock = true;
                 _targetStats.ApplyAilments(canApplyIgnite, canApplyChill, canApplayShock);
-                Debug.Log("µç");
                 return;
             }
         }
@@ -417,4 +432,41 @@ public class CharacterStats : MonoBehaviour
     //{
     //    maxHP. = GetMaxHealthValue();
     //}
+
+    public Stat GetStat(StatType _statType)
+    {
+        switch (_statType)
+        {
+            case StatType.strength:
+                return strength;
+            case StatType.agility:
+                return agility;
+            case StatType.intelegence:
+                return intelligence;
+            case StatType.vituality:
+                return vitality;
+            case StatType.damage:
+                return damage;
+            case StatType.critChance:
+                return critChance;
+            case StatType.critPower:
+                return critPower;
+            case StatType.health:
+                return maxHP;
+            case StatType.armor:
+                return armor;
+            case StatType.evasion:
+                return evasion;
+            case StatType.magicRes:
+                return magicResistance;
+            case StatType.fireDamage:
+                return fireDamage;
+            case StatType.iceDamage:
+                return iceDamage;
+            case StatType.lightingDamage:
+                return lightningDamage;
+            default:
+                return null;
+        }
+    }
 }
