@@ -5,12 +5,19 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UI_StatSlot : MonoBehaviour  ,IPointerDownHandler
+public class UI_StatSlot : MonoBehaviour  ,IPointerDownHandler,IPointerEnterHandler,IPointerExitHandler
 {
     [SerializeField] private Image itemImage;
     [SerializeField] private TextMeshProUGUI itemText;
 
+    private UI ui;
     public InventoryItem item;
+
+    private void Start()
+    {
+        ui = GetComponentInParent<UI>();
+
+    }
 
     public void UpdateSlot(InventoryItem _newItem)
     {
@@ -59,5 +66,32 @@ public class UI_StatSlot : MonoBehaviour  ,IPointerDownHandler
         {
             Inventory.instance.EquipItem(item.data);
         }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if(item == null)
+        {
+            return;
+        }
+        if (ui == null)
+        {
+            Debug.LogError("UI is not found!");
+        }
+        if(ui.itemTooltip == null)
+        {
+            Debug.LogError("UI_ItemTooltip is not found!");
+        }
+        ui.itemTooltip.ShowTooltip(item.data as ItemData_Equipment);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if(item == null)
+        {
+            return;
+        }
+
+        ui.itemTooltip.HideTooltip();
     }
 }

@@ -7,8 +7,8 @@ public enum EquipmentType
 {
     Weapon,
     Armor,
-    Amulet, //»¤Éí·û
-    Flask   //Ò©Æ¿
+    Amulet,
+    Flask
 }
 
 [CreateAssetMenu(fileName = "New Item Data", menuName = "Data/Equipment")]
@@ -21,23 +21,23 @@ public class ItemData_Equipment : ItemData
     public ItemEffect[] itemEffects;
 
     [Header("Major stats")]
-    public int strength; // 1 point increase damage by 1 and crit.power by 1 »îÁ¦
-    public int agility; // 1 point increase damage by 1% and crit.chance by 1% Ãô½Ý
-    public int intelligence; // 1 point inrease magic damage by 1 and magic resistance by 3 ÖÇ»Û
-    public int vitality; // 1 point increase health by 3 or 4 points »îÁ¦
+    public int strength; // 1 point increase damage by 1 and crit.power by 1 
+    public int agility; // 1 point increase damage by 1% and crit.chance by 1% 
+    public int intelligence; // 1 point inrease magic damage by 1 and magic resistance by 3 
+    public int vitality; // 1 point increase health by 3 or 4 points 
 
     [Header("Offensive stats")]
-    public int damage; //ÉËº¦
-    public int critChance;  //±©»÷ÂÊ
+    public int damage; 
+    public int critChance;  
     public int critDamage;
-    public int critPower;  //±¬ÉË
+    public int critPower;  
 
 
     [Header("Defensive stats")]
-    public int maxHP;  //ÂúÑª
-    public int armor; // ×°¼× defence 
-    public int evasion; //ÉÁ±Ü miss
-    public int magicResistance;  //·¨¿¹
+    public int maxHP;  
+    public int armor; 
+    public int evasion; 
+    public int magicResistance; 
 
     [Header("Magic stats")]
     public int fireDamage;
@@ -46,6 +46,8 @@ public class ItemData_Equipment : ItemData
 
     [Header("craft requirements")]
     public List<InventoryItem> craftMaterials;
+
+    private int descripionLength;
 
     public void Effect(Transform _enemyPosition)
     {
@@ -99,5 +101,59 @@ public class ItemData_Equipment : ItemData
         playerStats.fireDamage.RemoveModifier(fireDamage);
         playerStats.iceDamage.RemoveModifier(iceDamage);
         playerStats.lightningDamage.RemoveModifier(lightningDamage);
+    }
+
+    public override string GetDescription()
+    {
+        sb.Length = 0;
+        descripionLength = 0;
+
+        AddItemDescription(strength, "Strength");
+        AddItemDescription(agility, "Agility");
+        AddItemDescription(intelligence, "Intelligence");
+        AddItemDescription(vitality, "Vitality");
+
+        AddItemDescription(damage, "Damage");
+        AddItemDescription(critChance, "Crit Chance");
+        AddItemDescription(critPower, "Crit Power");
+
+        AddItemDescription(maxHP, "Max HP");
+        AddItemDescription(armor, "Armor");
+        AddItemDescription(evasion, "Evasion");
+        AddItemDescription(magicResistance, "Magic Resistance");
+
+        AddItemDescription(fireDamage, "Fire Damage");
+        AddItemDescription(iceDamage, "Ice Damage");
+        AddItemDescription(lightningDamage, "Lightning Damage");
+
+
+        if(descripionLength < 5)
+        {
+            for(int i = 0; i <= 5 - descripionLength; i++)
+            {
+                sb.AppendLine();
+                sb.Append("");
+            }
+        }
+
+        return sb.ToString();
+    }
+
+    private void AddItemDescription(int _value, string _name)
+    {
+        if(_value != 0)
+        {
+            if(sb.Length > 0)
+            {
+                sb.AppendLine();
+            }
+
+            if(_value > 0)
+            {
+                sb.Append("+ " + _value + " " + _name);
+            }
+
+            descripionLength ++;
+        }
     }
 }
