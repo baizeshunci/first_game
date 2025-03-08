@@ -5,15 +5,33 @@ using UnityEngine.EventSystems;
 
 public class UI_CraftSlot : UI_StatSlot
 {
-    private void OnEnable()
+    protected override void Start()
     {
-        UpdateSlot(item);
+        base.Start();
+    }
+
+    public void SetupCraftSlot(ItemData_Equipment _data)
+    {
+        if (_data == null)
+            return;
+
+        item.data = _data;
+
+        itemImage.sprite = _data.icon;
+        itemText.text = _data.itemName;
+
+        if(itemText.text.Length > 10)
+        {
+            itemText.fontSize = itemText.fontSize * .8f;
+        }
+        else
+        {
+            itemText.fontSize = 24;
+        }
     }
 
     public override void OnPointerDown(PointerEventData eventData)
     {
-        ItemData_Equipment craftData = item.data as ItemData_Equipment;
-
-        Inventory.instance.CanCraft(craftData, craftData.craftMaterials);
+        ui.craftWindow.SetupCraftWindow(item.data as ItemData_Equipment);
     }
 }
