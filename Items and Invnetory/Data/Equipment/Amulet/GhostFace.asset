@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68481f578eb107c429be6d3f12b7b77b, type: 3}
   m_Name: GhostFace
   m_EditorClassIdentifier: 
-  itemType: 0
-  itemName: 
-  icon: {fileID: 0}
+  itemType: 1
+  itemName: GhostFace
+  icon: {fileID: 21300000, guid: 4bd722eab7fbfe149a44edd733c6da3a, type: 3}
   dropChance: 0
-  equipmentType: 0
+  equipmentType: 2
   itemCooldown: 0
   itemEffects: []
-  strength: 0
+  strength: 30
   agility: 0
   intelligence: 0
   vitality: 0
@@ -27,11 +27,13 @@ MonoBehaviour:
   critChance: 0
   critDamage: 0
   critPower: 0
-  maxHP: 0
-  armor: 0
-  evasion: 0
-  magicResistance: 0
+  maxHP: 50
+  armor: 20
+  evasion: 10
+  magicResistance: 10
   fireDamage: 0
   iceDamage: 0
   lightningDamage: 0
-  craftMaterials: []
+  craftMaterials:
+  - data: {fileID: 11400000, guid: 94500c8bf3b1fed48a7ec213707b0225, type: 2}
+    stackSize: 5

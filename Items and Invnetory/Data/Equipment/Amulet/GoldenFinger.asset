@@ -31,9 +31,9 @@ MonoBehaviour:
   armor: 0
   evasion: 0
   magicResistance: 0
-  fireDamage: 0
-  iceDamage: 0
-  lightningDamage: 0
+  fireDamage: 999
+  iceDamage: 999
+  lightningDamage: 999
   craftMaterials:
   - data: {fileID: 11400000, guid: 94500c8bf3b1fed48a7ec213707b0225, type: 2}
-    stackSize: 3
+    stackSize: 999

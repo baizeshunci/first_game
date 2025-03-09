@@ -75,15 +75,36 @@ public class UI_StatSlot : MonoBehaviour  ,IPointerDownHandler,IPointerEnterHand
         {
             return;
         }
-        if (ui == null)
+        // if (ui == null)
+        // {
+        //     Debug.LogError("UI is not found!");
+        // }
+        // if(ui.itemTooltip == null)
+        // {
+        //     Debug.LogError("UI_ItemTooltip is not found!");
+        // }
+
+        Vector2 mousePosition = Input.mousePosition;
+
+        float xOffset = 0;
+        float yOffset = 0;
+
+        if(mousePosition.x > Screen.width / 2)
         {
-            Debug.LogError("UI is not found!");
+            xOffset = -Screen.width / 10;
         }
-        if(ui.itemTooltip == null)
+        else
+            xOffset = Screen.width / 10;
+        if(mousePosition.y > Screen.height / 2)
         {
-            Debug.LogError("UI_ItemTooltip is not found!");
+            yOffset = - Screen.height/10;
         }
+        else
+            yOffset = Screen.height/10;
+
+
         ui.itemTooltip.ShowTooltip(item.data as ItemData_Equipment);
+        ui.itemTooltip.transform.position = Input.mousePosition + new Vector3(xOffset, yOffset, 0);
     }
 
     public void OnPointerExit(PointerEventData eventData)
