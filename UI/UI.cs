@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI : MonoBehaviour
 {
@@ -15,7 +16,12 @@ public class UI : MonoBehaviour
     public UI_ItemTooltip itemTooltip;
     public UI_StatToolTip statToolTip;
     public UI_CraftWindow craftWindow;
-    
+
+    private void Awake()
+    {
+        SwitchTo(skillTreeUI); // we need this to assign events on skill tree slots tree slots before we assign events on skill scripts
+    }
+
     // Start is called before the first frame update
     void Start()
     {

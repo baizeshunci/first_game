@@ -122,7 +122,7 @@ public class Player : Entity
 
         CheckForDashInput();
         
-        if(Input.GetKeyDown(KeyCode.T))
+        if(Input.GetKeyDown(KeyCode.T) && skill.crystal.crystalUnlocked)
         {
             skill.crystal.UseSkill();
         }
@@ -177,6 +177,16 @@ public class Player : Entity
 
     private void CheckForDashInput()
     {
+        if(IsWallDectected())
+        {
+            return;
+        }
+
+        if(skill.dash.dashUnlocked == false)
+        {
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.LeftShift) && SkillManager.instance.dash.UseSkill() && dashState.canDash)
         {
             dashDir = Input.GetAxisRaw("Horizontal");

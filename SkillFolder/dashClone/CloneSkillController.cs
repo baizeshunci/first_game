@@ -9,7 +9,7 @@ public class CloneSkillController : MonoBehaviour
     private Animator anim;
     [SerializeField] private float colorLoosingSpeed;
     private float cloneTimer;
-
+    private float attackMultiplier;
     [SerializeField] private Transform attackCheck;
     [SerializeField] private float attackCheckRadius = .8f;
     private Transform closestEnemy;
@@ -38,13 +38,14 @@ public class CloneSkillController : MonoBehaviour
         }
     }
 
-    //public void SetupClone(Transform _newTransform, float _cloneDuration, bool _canAttack, Vector3 _offset,Transform _closestEnemy)
-    public void SetupClone(Transform _newTransform,float _cloneDuration,bool _canAttack,Vector3 _offset,int _FaceTarget, Transform _closestEnemy,bool _canDuplicate,float _chanceToDuplicate)
+    public void SetupClone(Transform _newTransform,float _cloneDuration,bool _canAttack,Vector3 _offset,int _FaceTarget, Transform _closestEnemy,bool _canDuplicate,float _chanceToDuplicate,float _attackMultiplier)
     {
         if(_canAttack)
         {
             anim.SetInteger("AttackNumber", Random.Range(1, 4));
         }
+
+        attackMultiplier = _attackMultiplier;
         transform.position = _newTransform.position + _offset;
         cloneTimer = _cloneDuration;
         closestEnemy = _closestEnemy;
@@ -74,7 +75,18 @@ public class CloneSkillController : MonoBehaviour
         {
             if (collider.GetComponent<Enemy>() != null)
             {
-                PlayerManager.instance.player.stats.DoDamage(collider.GetComponent<CharacterStats>());
+                //PlayerManager.instance.player.stats.DoDamage(collider.GetComponent<CharacterStats>());
+
+                PlayerStats playerStats = PlayerManager.instance.player.GetComponent<PlayerStats>();
+                EnemyStats enemyStats = collider.GetComponent<EnemyStats>();
+
+                if(PlayerManager.instance.player.skill.clone.canApplyOnHitEffect)
+                {
+                    Inventory.instance.GetEquipment(EquipmentType.Weapon)?.Effect(collider.transform);
+                }
+
+                playerStats.CloneDoDamage(enemyStats,attackMultiplier);
+
                 if(canDuplicateClone)
                 {
                     if(Random.Range(0,100) < chanceToDuplicate)
@@ -86,7 +98,7 @@ public class CloneSkillController : MonoBehaviour
         }
     }
     #region    Filp
-    //¸ù¾ÝÍæ¼ÒµÄ³¯Ïò·½Ïò½øÐÐ·­×ª
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÒµÄ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð·ï¿½×ª
     private void FaceDirTarget()
     {
         if( PlayerManager.instance.player.dashDir < 0 )
@@ -95,7 +107,7 @@ public class CloneSkillController : MonoBehaviour
         }
     }
 
-    //¸ù¾ÝµÐÈËµÄ·½Î»½øÐÐ·­×ª
+    //ï¿½ï¿½ï¿½Ýµï¿½ï¿½ËµÄ·ï¿½Î»ï¿½ï¿½ï¿½Ð·ï¿½×ª
     private void FaceClosestTarget()
     {
         if (closestEnemy != null)

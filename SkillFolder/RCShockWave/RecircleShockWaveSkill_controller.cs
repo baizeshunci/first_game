@@ -221,8 +221,19 @@ public class RecircleShockWaveSkill_controller : MonoBehaviour
 
     private void RCSWSkillDamage(Enemy enemy)
     {
-        player.stats.DoDamage(enemy.GetComponent<CharacterStats>());
-        enemy.FreezeTimeFor(freezeTimeduration);
+        EnemyStats enemyStats = enemy.GetComponent<EnemyStats>();
+
+        player.stats.DoDamage(enemyStats);
+
+        if(player.skill.RSWSkill.timeStopUnlocked)
+        {
+            enemy.FreezeTimeFor(freezeTimeduration);
+        }
+
+        if(player.skill.RSWSkill.vulnurableUnlocked)
+        {
+            enemyStats.MakeVulnerableFor(freezeTimeduration);
+        }
 
         ItemData_Equipment equipedAmulet = Inventory.instance.GetEquipment(EquipmentType.Amulet);
 

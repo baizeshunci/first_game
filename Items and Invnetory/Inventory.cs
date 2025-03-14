@@ -102,6 +102,8 @@ public class Inventory : MonoBehaviour
         RemoveItem(_item);
 
         PlayerManager.instance.player.GetComponentInChildren<UI_HealthBar>().UpdateHealthUI();
+
+        UpdateSlotUI();
         //GetComponent<PlayerStats>.
     }
 
@@ -118,7 +120,7 @@ public class Inventory : MonoBehaviour
 
     private void UpdateSlotUI()
     {
-        for(int i = 0;i< equipmentSlot.Length;i++)
+        for (int i = 0; i < equipmentSlot.Length; i++)
         {
             foreach (KeyValuePair<ItemData_Equipment, InventoryItem> item in equipmentDictionary)
             {
@@ -129,12 +131,12 @@ public class Inventory : MonoBehaviour
             }
         }
 
-        for(int i = 0; i< inventoryItemSlot.Length;i++)
+        for (int i = 0; i < inventoryItemSlot.Length; i++)
         {
             inventoryItemSlot[i].CleanUpSlot();
         }
 
-        for(int i = 0;i<stashItemSlot.Length;i++)
+        for (int i = 0; i < stashItemSlot.Length; i++)
         {
             stashItemSlot[i].CleanUpSlot();
         }
@@ -144,12 +146,17 @@ public class Inventory : MonoBehaviour
             inventoryItemSlot[i].UpdateSlot(inventory[i]);
         }
 
-        for(int i = 0;i < stash.Count; i++)
+        for (int i = 0; i < stash.Count; i++)
         {
             stashItemSlot[i].UpdateSlot(stash[i]);
         }
 
-        for(int i = 0; i < statSlot.Length; i++) // update info of stats in character UI
+        UpdateStatsUI();
+    }
+
+    public void UpdateStatsUI()
+    {
+        for (int i = 0; i < statSlot.Length; i++) // update info of stats in character UI
         {
             statSlot[i].UpdateStatValueUI();
         }

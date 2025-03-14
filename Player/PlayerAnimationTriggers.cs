@@ -27,11 +27,6 @@ public class PlayerAnimationTriggers : MonoBehaviour
                 }
                 // inventory get weapon call item effect
                 Inventory.instance.GetEquipment(EquipmentType.Weapon)?.Effect(_target.transform);
-
-                //collider.GetComponent<Enemy>().Damage();
-                //collider.GetComponent<CharacterStats>().TakeDamage(player.stats.damage.GetValue());
-
-                //Debug.Log(player.stats.damage.GetValue());
             }
         }
     }

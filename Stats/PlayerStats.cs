@@ -38,4 +38,35 @@ public class PlayerStats : CharacterStats
             currentArmor.Effect(PlayerManager.instance.player.transform);
         }
     }
+
+    public override void onEvasion()
+    {
+        PlayerManager.instance.player.skill.dodge.CreateMirageOnDodge();
+    }
+
+    public void CloneDoDamage(CharacterStats _targetStats,float _multiplier)
+    {
+        if (TargetCanAvoidAttack(_targetStats))
+            return;
+
+        int totalDamage = damage.GetValue() + strength.GetValue();
+
+        if(_multiplier > 0)
+        {
+            totalDamage = Mathf.RoundToInt(totalDamage * _multiplier);
+        }
+
+        if (CanCrit())
+        {
+            totalDamage = CalculteCriticalDamage(totalDamage);
+            //Debug.Log("Total crit damage is " + totalDamage);
+        }
+        totalDamage = CheckTargetTotalArmor(_targetStats, totalDamage);
+        _targetStats.TakeDamage(totalDamage);
+
+        //if invnteroy current weapon has fire effect
+        //DoMagicDamage(_targetStats);
+
+        DoMagicDamage(_targetStats);
+    }
 }

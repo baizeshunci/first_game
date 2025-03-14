@@ -26,7 +26,7 @@ public class SkeletonStunnedState : EnemyState
     {
         base.Exit();
 
-        skeleton.fx.Invoke("CancelColorChage", 0);
+        skeleton.fx.Invoke("CancelColorChange", 0);
     }
 
     public override void Update()

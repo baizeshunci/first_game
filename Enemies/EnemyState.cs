@@ -16,7 +16,6 @@ public class EnemyState
 
     public EnemyState(Enemy _enemyBase, EnemyStateMachine _stateMachine, string _animBoolName)
     {
-       
         this.stateMachine = _stateMachine;
         this.enemyBase = _enemyBase;
         this.animBoolName = _animBoolName;

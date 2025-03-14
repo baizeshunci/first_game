@@ -24,19 +24,32 @@ public class PlayerGroundState : PlayerState
 
         if (SkillManager.instance.RSWSkill.coolDown + SkillManager.instance.RSWSkill.coolDownRecord < Time.time)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse1) && HasRCShockWave() && PlayerManager.instance.player.RCShockWaveTime == 0)
+            if (Input.GetKeyDown(KeyCode.Mouse1) && HasRCShockWave() && PlayerManager.instance.player.RCShockWaveTime == 0 && player.skill.RSWSkill.recircleUnlocked)
             {
                 PlayerManager.instance.player.RCShockWaveTime = 1;
                 stateMachine.ChangeState(player.aimShockWave);
             }
         }
 
-        if(Input.GetKeyDown(KeyCode.R))
+        if(player == null)
+        {
+            Debug.Log("Player is null");
+        }
+        else if(player.skill == null)
+        {
+            Debug.Log("Player skill is null");
+        }
+        else if(player.skill.parry == null)
+        {
+            Debug.Log("Player parry is null");
+        }
+
+        if(Input.GetKeyDown(KeyCode.R) && player.skill.blankhole.blackholeUnlocked)
         {
             PlayerManager.instance.player.dashState.canDash = false;
             stateMachine.ChangeState(player.blankholeState);
         }
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && player.skill.parry.parryUnlocked)
         {
             stateMachine.ChangeState(player.counterAttack);
         }

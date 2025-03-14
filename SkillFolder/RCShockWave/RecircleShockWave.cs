@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public enum RCShockWave
 {
@@ -19,21 +20,26 @@ public class RecircleShockWave : Skill
     public RCShockWave RCSW = RCShockWave.Regular;
 
     [Header("Bounce info ")]
+    [SerializeField] private UI_SkillTreeSlot bounceUnlockButton;
     [SerializeField] private int bounceAmount;
     [SerializeField] private float bouceGravity;
     [SerializeField] private float bouceSpeed;
 
     [Header("Perice info")]
+    [SerializeField] private UI_SkillTreeSlot pierceUnlockButton;
     [SerializeField] private int pierceAmount;
     [SerializeField] private float pierceGravity;
 
     [Header("Spin info")]
+    [SerializeField] private UI_SkillTreeSlot spinUnlockButton;
     [SerializeField] private float hitCooldown = .35f;
     [SerializeField] private float maxTravelDistance = 7;
     [SerializeField] private float spinDuration = 2;
     [SerializeField] private float spinGravity = 1;
 
     [Header("Skill info")]
+    [SerializeField] private UI_SkillTreeSlot recircleShockWaveUnlockButton;
+    public bool recircleUnlocked { get ; private set; }
     [SerializeField] private GameObject recircleShockWavePrefab;
     [SerializeField] private Vector2 launchDir;
     [SerializeField] private float recircleShockWaveGravity;
@@ -41,8 +47,16 @@ public class RecircleShockWave : Skill
     [SerializeField] public float coolDownRecord = -2f;
     [SerializeField] private float freezeTimeDuration;
     [SerializeField] private float returnSpeed;
-    
-    Vector2 playerPosition;
+
+    [Header("Passsive skills")]
+    [SerializeField] private UI_SkillTreeSlot timeStopUnlockButton;
+    public bool timeStopUnlocked { get ; private set; }
+    [SerializeField] private UI_SkillTreeSlot vulnurableUnlockButton;
+    public bool vulnurableUnlocked { get ; private set; }
+
+
+
+    public Vector2 playerPosition;
 
     private Vector2 finalDir;
 
@@ -60,7 +74,12 @@ public class RecircleShockWave : Skill
 
         GenerateDots();
 
-        
+        recircleShockWaveUnlockButton.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(UnlockRecircleShockWave);
+        bounceUnlockButton.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(UnlockBounce);
+        pierceUnlockButton.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(UnlockPierce);
+        spinUnlockButton.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(UnlockSpin);
+        timeStopUnlockButton.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(UnlockTimeStop);
+        vulnurableUnlockButton.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(UnlockVolnurable);
     }
 
     private void SetupGrativty()
@@ -123,6 +142,62 @@ public class RecircleShockWave : Skill
         DotActive(false);
     }
 
+    #region Unlock region
+
+    private void UnlockTimeStop()
+    {
+        if(timeStopUnlockButton.unlocked)
+        {
+            //RCSW = RCShockWave.Regular;
+            timeStopUnlocked = true;
+        }
+    }
+
+    private void UnlockVolnurable()
+    {
+        if(vulnurableUnlockButton.unlocked)
+        {
+            //RCSW = RCShockWave.Regular;
+            vulnurableUnlocked = true;
+        }
+    }
+
+    private void UnlockRecircleShockWave()
+    {
+        if(recircleShockWaveUnlockButton.unlocked)
+        {
+            RCSW = RCShockWave.Regular;
+            recircleUnlocked = true;
+        }
+    }
+
+    private void UnlockBounce()
+    {
+        if(bounceUnlockButton.unlocked)
+        {
+            RCSW = RCShockWave.Bounce;
+        }
+    }
+
+    private void UnlockPierce()
+    {
+        if(pierceUnlockButton.unlocked)
+        {
+            RCSW = RCShockWave.Pierce;
+        }
+    }
+
+    private void UnlockSpin()
+    {
+        if(spinUnlockButton.unlocked)
+        {
+            RCSW = RCShockWave.Spin;
+        }
+    }
+
+
+
+    #endregion
     #region Aim region
     public Vector2 AimDirection()
     {
